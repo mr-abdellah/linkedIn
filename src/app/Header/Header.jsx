@@ -1,11 +1,11 @@
 import SearchIcon from "@mui/icons-material/Search";
 import "./Header.css";
-import HeaderOption from "./HeaderOption/HeaderOption";
 import HomeIcon from "@mui/icons-material/Home";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationIcon from "@mui/icons-material/Notifications";
+import HeaderOption from "../../components/HeaderOption/HeaderOption";
 
 const Header = () => {
   return (
