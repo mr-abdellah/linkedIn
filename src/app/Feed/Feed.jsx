@@ -3,6 +3,9 @@ import CreateIcon from "@mui/icons-material/Create";
 import "./feed.css";
 import InputOption from "../../components/InputOption/InputOption";
 import ImageIcon from "@mui/icons-material/Image";
+import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 
 const Feed = () => {
   return (
@@ -20,9 +23,19 @@ const Feed = () => {
         </div>
 
         <div className="feed__inputOptions">
-          <InputOption Icon={ImageIcon}  text='photo' color='#378fe9'/>
+          <InputOption Icon={ImageIcon} text="Photo" color="#378fe9" />
+          <InputOption Icon={SubscriptionsIcon} text="Video" color="#E7A33E" />
+          <InputOption Icon={EventNoteIcon} text="Event" color="#C0CBCD" />
+          <InputOption
+            Icon={CalendarViewDayIcon}
+            text="Write article"
+            color="#7FC15E"
+          />
         </div>
       </div>
+
+        {/* Posts section */}
+
     </div>
   );
 };

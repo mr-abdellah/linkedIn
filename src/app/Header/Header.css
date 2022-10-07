@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: space-evenly;
   border: 0.1px solid lightgray;
+  background-color: white;
   padding: 10px 0;
   width: 100%;
   position: sticky;
