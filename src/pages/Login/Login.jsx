@@ -13,10 +13,9 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
 const Login = () => {
-  const currentUser = auth.currentUser;
-
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
+  // console.log(fullName);
   const [profilePic, setProfilePic] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,7 +30,6 @@ const Login = () => {
             fullName: userAuth.displayName,
             profilePic: userAuth.photoURL,
             email: userAuth.email,
-            uid: userAuth.uid,
           })
         );
       })
@@ -43,17 +41,16 @@ const Login = () => {
       alert("Please enter a full name");
     } else {
       await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(currentUser, {
+      await updateProfile(auth.currentUser, {
         displayName: fullName,
         photoURL: profilePic,
       });
-      console.log(currentUser);
       await dispatch(
         login({
-          fullName: currentUser?.displayName,
-          profilePic: currentUser?.photoURL,
-          email: currentUser?.email,
-          uid: currentUser.uid,
+          fullName: auth.currentUser.displayName,
+          profilePic: auth.currentUser.photoURL,
+          email: auth.currentUser.email,
+          uid: auth.currentUser.uid,
         })
       );
     }

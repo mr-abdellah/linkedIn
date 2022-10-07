@@ -16,10 +16,13 @@ import {
   query,
   serverTimestamp,
 } from "firebase/firestore/lite";
+import { selectUser } from "../../redux/features/userSlice";
+import { useSelector } from "react-redux";
 
 const Feed = () => {
+  const user = useSelector(selectUser);
   const [inputData, setInputData] = useState("");
-
+  console.log(user);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -38,14 +41,13 @@ const Feed = () => {
   const sharePost = (e) => {
     e.preventDefault();
     addDoc(collection(db, "posts"), {
-      name: "Abdellah",
-      description: "Junior web developer",
+      name: user.fullName,
+      description: user.email,
       message: inputData,
-      photoUrl: "",
+      photoUrl: user.profilePic,
       createdAt: serverTimestamp(),
     });
     setInputData("");
-    window.location.reload();
   };
 
   return (

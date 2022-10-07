@@ -6,16 +6,16 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationIcon from "@mui/icons-material/Notifications";
 import HeaderOption from "../../components/HeaderOption/HeaderOption";
-import { useDispatch } from "react-redux";
-import { logout } from "../../redux/features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, selectUser } from "../../redux/features/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../../Firebase/firebase";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
 
   const handleLogout = () => {
-    console.log("im clicked");
     signOut(auth).then(() => {
       dispatch(logout());
     });
@@ -42,8 +42,8 @@ const Header = () => {
         <HeaderOption title="Notifications" Icon={NotificationIcon} />
         <button id="logout" onClick={handleLogout}>
           <HeaderOption
-            title="Abdellah"
-            avatar="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-6.png"
+            title={user?.fullName}
+            avatar={user?.profilePic}
           />
         </button>
       </div>
