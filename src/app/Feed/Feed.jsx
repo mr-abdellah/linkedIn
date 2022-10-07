@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import "./feed.css";
 import InputOption from "../../components/InputOption/InputOption";
@@ -7,8 +7,39 @@ import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "../../components/Post/Post";
+import { db } from "../../auth/firebase";
+import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
 
 const Feed = () => {
+  const [inputData, setInputData] = useState("");
+
+  const [posts, setPosts] = useState([]);
+
+  
+
+  useEffect(() => {
+    getDocs(query(collection(db, "posts"),orderBy("createdAt", "desc"))).then((snapshot) => {
+      setPosts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        })),
+      );
+    });
+  }, [posts]);
+
+  const sharePost = (e) => {
+    e.preventDefault();
+    addDoc(collection(db, "posts"), {
+      name: "Abdellah",
+      description: "Junior web developer",
+      message: inputData,
+      photoUrl: "",
+      createdAt: serverTimestamp()
+    });
+    setInputData("");
+  };
+
   return (
     <div className="feed">
       <div className="feed__inputContainer">
@@ -18,8 +49,10 @@ const Feed = () => {
             <input
               type="text"
               placeholder="Post a picture from school or work"
+              value={inputData || ""}
+              onChange={(e) => setInputData(e.target.value)}
             />
-            <button type="submit"></button>
+            <button type="submit" onClick={sharePost}></button>
           </form>
         </div>
 
@@ -37,12 +70,16 @@ const Feed = () => {
 
       {/* Posts section */}
 
-      <Post
-        name="Abdellah Belkaid"
-        description="this is a linkedin post test description"
-        message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis doloremque commodi, nobis placeat aliquam a magni voluptates aliquid fugit accusantium voluptatum vero quos maiores quis architecto ad voluptas, fuga soluta?'
-        photoUrl='https://img.icons8.com/color/344/circled-user-male-skin-type-3--v1.png'
-      />
+      {posts.length > 0 &&
+        posts?.map(({id, data:{name,description,message,photoUrl}}) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        ))}
     </div>
   );
 };
