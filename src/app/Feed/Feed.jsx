@@ -6,6 +6,7 @@ import ImageIcon from "@mui/icons-material/Image";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
+import Post from "../../components/Post/Post";
 
 const Feed = () => {
   return (
@@ -34,8 +35,14 @@ const Feed = () => {
         </div>
       </div>
 
-        {/* Posts section */}
+      {/* Posts section */}
 
+      <Post
+        name="Abdellah Belkaid"
+        description="this is a linkedin post test description"
+        message='Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis doloremque commodi, nobis placeat aliquam a magni voluptates aliquid fugit accusantium voluptatum vero quos maiores quis architecto ad voluptas, fuga soluta?'
+        photoUrl='https://img.icons8.com/color/344/circled-user-male-skin-type-3--v1.png'
+      />
     </div>
   );
 };
