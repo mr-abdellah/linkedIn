@@ -6,8 +6,21 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import ChatIcon from "@mui/icons-material/Chat";
 import NotificationIcon from "@mui/icons-material/Notifications";
 import HeaderOption from "../../components/HeaderOption/HeaderOption";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/features/userSlice";
+import { signOut } from "firebase/auth";
+import { auth } from "../../Firebase/firebase";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    console.log("im clicked");
+    signOut(auth).then(() => {
+      dispatch(logout());
+    });
+  };
+
   return (
     <div className="header">
       <div className="header__left">
@@ -18,7 +31,7 @@ const Header = () => {
 
         <div className="header__search">
           <SearchIcon />
-          <input type="text" name="" id="" />
+          <input type="text" placeholder="Search" />
         </div>
       </div>
       <div className="header__right">
@@ -27,7 +40,12 @@ const Header = () => {
         <HeaderOption title="Jobs" Icon={BusinessCenterIcon} />
         <HeaderOption title="Messaging" Icon={ChatIcon} />
         <HeaderOption title="Notifications" Icon={NotificationIcon} />
-        <HeaderOption title="Abdellah" avatar='https://img.icons8.com/color/48/000000/circled-user-male-skin-type-6.png' />
+        <button id="logout" onClick={handleLogout}>
+          <HeaderOption
+            title="Abdellah"
+            avatar="https://img.icons8.com/color/48/000000/circled-user-male-skin-type-6.png"
+          />
+        </button>
       </div>
     </div>
   );

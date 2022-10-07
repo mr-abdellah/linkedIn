@@ -7,26 +7,33 @@ import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "../../components/Post/Post";
-import { db } from "../../auth/firebase";
-import { addDoc, collection, getDocs, orderBy, query, serverTimestamp } from "firebase/firestore/lite";
+import { db } from "../../Firebase/firebase";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "firebase/firestore/lite";
 
 const Feed = () => {
   const [inputData, setInputData] = useState("");
 
   const [posts, setPosts] = useState([]);
 
-  
-
   useEffect(() => {
-    getDocs(query(collection(db, "posts"),orderBy("createdAt", "desc"))).then((snapshot) => {
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        })),
-      );
-    });
-  }, [posts]);
+    getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc"))).then(
+      (snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        );
+      }
+    );
+  }, []);
 
   const sharePost = (e) => {
     e.preventDefault();
@@ -35,9 +42,10 @@ const Feed = () => {
       description: "Junior web developer",
       message: inputData,
       photoUrl: "",
-      createdAt: serverTimestamp()
+      createdAt: serverTimestamp(),
     });
     setInputData("");
+    window.location.reload();
   };
 
   return (
@@ -71,7 +79,7 @@ const Feed = () => {
       {/* Posts section */}
 
       {posts.length > 0 &&
-        posts?.map(({id, data:{name,description,message,photoUrl}}) => (
+        posts?.map(({ id, data: { name, description, message, photoUrl } }) => (
           <Post
             key={id}
             name={name}
