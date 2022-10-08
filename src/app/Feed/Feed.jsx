@@ -36,8 +36,8 @@ const Feed = () => {
           }))
         );
       }
-    );
-  }, []);
+    );//eslint-disable-next-line
+  }, [posts[0]]);
 
   const sharePost = (e) => {
     e.preventDefault();
