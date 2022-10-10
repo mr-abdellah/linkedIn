@@ -20,6 +20,7 @@ import {
 import { selectUser } from "../../redux/features/userSlice";
 import { useSelector } from "react-redux";
 import FlipMove from "react-flip-move";
+import { Avatar } from "@mui/material";
 
 const Feed = () => {
   const user = useSelector(selectUser);
@@ -57,7 +58,9 @@ const Feed = () => {
     <div className="feed">
       <div className="feed__inputContainer">
         <div className="feed__input">
-          <img src={user?.profilePic} alt="profile_pic" />
+          <Avatar src={user?.profilePic}>
+            {/* {!user?.profilePic && user.fullName[0]} */}
+          </Avatar>
           <form action="">
             <input
               type="text"
