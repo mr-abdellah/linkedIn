@@ -26,20 +26,23 @@ const Feed = () => {
   const user = useSelector(selectUser);
   const [inputData, setInputData] = useState("");
   const [posts, setPosts] = useState([]);
-  const [num, setNum] = useState(0);
+
+  const getPosts = async () => {
+    await getDocs(
+      query(collection(db, "posts"), orderBy("createdAt", "desc"))
+    ).then((snapshot) => {
+      setPosts(
+        snapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    });
+  };
 
   useEffect(() => {
-    getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc"))).then(
-      (snapshot) => {
-        setPosts(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        );
-      }
-    );
-  }, [num]);
+    getPosts();
+  }, []);
 
   const sharePost = (e) => {
     e.preventDefault();
@@ -51,7 +54,7 @@ const Feed = () => {
       createdAt: serverTimestamp(),
     });
     setInputData("");
-    setNum((prev) => prev + 1);
+    getPosts();
   };
 
   return (
