@@ -1,3 +1,5 @@
+/** @format */
+
 import SearchIcon from "@mui/icons-material/Search";
 import "./Header.css";
 import HomeIcon from "@mui/icons-material/Home";
@@ -41,10 +43,9 @@ const Header = () => {
         <HeaderOption title="Messaging" Icon={ChatIcon} />
         <HeaderOption title="Notifications" Icon={NotificationIcon} />
         <button id="logout" onClick={handleLogout}>
-          <HeaderOption
-            title={user?.fullName}
-            avatar={user?.profilePic}
-          />
+          <HeaderOption title={user?.fullName} avatar={user?.profilePic}>
+            {!user?.profilePic && user?.fullName}
+          </HeaderOption>
         </button>
       </div>
     </div>
