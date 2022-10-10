@@ -1,6 +1,9 @@
+/** @format */
+
 .feed {
-  flex: 0.6;
+  flex: 0;
   margin: 0 20px;
+  width: 70%;
 }
 
 .feed__inputContainer {
@@ -39,4 +42,7 @@
 .feed__inputOptions {
   display: flex;
   justify-content: space-evenly;
+}
+
+@media screen and (min-width: 768px) {
 }

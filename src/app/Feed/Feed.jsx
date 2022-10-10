@@ -23,8 +23,9 @@ import FlipMove from "react-flip-move";
 const Feed = () => {
   const user = useSelector(selectUser);
   const [inputData, setInputData] = useState("");
-  console.log(user);
   const [posts, setPosts] = useState([]);
+
+  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc"))).then(
@@ -37,7 +38,7 @@ const Feed = () => {
         );
       }
     );
-  },[]);
+  }, []);
 
   const sharePost = (e) => {
     e.preventDefault();
@@ -81,18 +82,15 @@ const Feed = () => {
 
       {/* Posts section */}
       <FlipMove>
-        {posts.length > 0 &&
-          posts?.map(
-            ({ id, data: { name, description, message, photoUrl } }) => (
-              <Post
-                key={id}
-                name={name}
-                description={description}
-                message={message}
-                photoUrl={photoUrl}
-              />
-            )
-          )}
+        {posts.map(({ id, data: { name, description, message, photoUrl } }) => (
+          <Post
+            key={id}
+            name={name}
+            description={description}
+            message={message}
+            photoUrl={photoUrl}
+          />
+        ))}
       </FlipMove>
     </div>
   );
