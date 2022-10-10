@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import CreateIcon from "@mui/icons-material/Create";
 import "./feed.css";
@@ -24,8 +26,6 @@ const Feed = () => {
   const user = useSelector(selectUser);
   const [inputData, setInputData] = useState("");
   const [posts, setPosts] = useState([]);
-
-  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc"))).then(
@@ -56,7 +56,7 @@ const Feed = () => {
     <div className="feed">
       <div className="feed__inputContainer">
         <div className="feed__input">
-          <CreateIcon />
+          <img src={user?.profilePic} alt="profile_pic" />
           <form action="">
             <input
               type="text"
