@@ -1,7 +1,4 @@
-/** @format */
-
 import React, { useEffect, useState } from "react";
-import CreateIcon from "@mui/icons-material/Create";
 import "./feed.css";
 import InputOption from "../../components/InputOption/InputOption";
 import ImageIcon from "@mui/icons-material/Image";
