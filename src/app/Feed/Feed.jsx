@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useEffect, useState } from "react";
 import "./feed.css";
 import InputOption from "../../components/InputOption/InputOption";
@@ -23,6 +25,7 @@ const Feed = () => {
   const user = useSelector(selectUser);
   const [inputData, setInputData] = useState("");
   const [posts, setPosts] = useState([]);
+  const [num, setNum] = useState(0);
 
   useEffect(() => {
     getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc"))).then(
@@ -35,7 +38,7 @@ const Feed = () => {
         );
       }
     );
-  }, []);
+  }, [num]);
 
   const sharePost = (e) => {
     e.preventDefault();
@@ -47,6 +50,7 @@ const Feed = () => {
       createdAt: serverTimestamp(),
     });
     setInputData("");
+    setNum((prev) => prev + 1);
   };
 
   return (
