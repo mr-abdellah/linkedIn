@@ -1,48 +1,103 @@
+/** @format */
+
 import "./app.css";
 import Header from "./app/Header/Header";
 import Sidebar from "./app/Sidebar/Sidebar";
 import Feed from "./app/Feed/Feed";
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout, selectUser } from "./redux/features/userSlice";
+import {
+  login,
+  logout,
+  register,
+  selectUser,
+} from "./redux/features/userSlice";
 import Login from "./pages/Login/Login";
-import { useEffect } from "react";
+import Register from "./pages/Register/Register";
+import { useEffect, useState } from "react";
 import { auth } from "./Firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Widgets from "./app/Widgets/Widgets";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 
 function App() {
-  const user = useSelector(selectUser);
+  const [userLoggedIn, setUserLoggedIn] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    onAuthStateChanged(auth, (userAuth) => {
+  const logged = async () => {
+    await onAuthStateChanged(auth, (userAuth) => {
       if (userAuth) {
-        dispatch(login({
-          fullName: userAuth.displayName,
-          profilePic: userAuth.photoURL,
-          email: userAuth.email,
-          uid: userAuth.uid,
-        }))
+        dispatch(
+          login({
+            fullName: userAuth.displayName,
+            profilePic: userAuth.photoURL,
+            email: userAuth.email,
+            uid: userAuth.uid,
+          })
+        );
+
+        setUserLoggedIn(true);
+      } else if (userAuth) {
+        dispatch(
+          register({
+            fullName: userAuth.displayName,
+            profilePic: userAuth.photoURL,
+            email: userAuth.email,
+            uid: userAuth.uid,
+          })
+        );
       } else {
         dispatch(logout());
+        setUserLoggedIn(false);
       }
     });
-    // eslint-disable-next-line 
-  },[]);
+  };
+
+  useEffect(() => {
+    logged();
+  }, []);
+
+  const Layout = () => {
+    return (
+      <>
+        <Header />
+        <div className="app__body">
+          <Sidebar />
+          <Outlet />
+          <Widgets />
+        </div>
+      </>
+    );
+  };
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: userLoggedIn ? <Layout /> : <Navigate to="/login" />,
+      children: [
+        {
+          path: "/",
+          element: <Feed />,
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: userLoggedIn ? <Navigate to="/" /> : <Login />,
+    },
+    {
+      path: "/register",
+      element: userLoggedIn ? <Navigate to="/" /> : <Register />,
+    },
+  ]);
 
   return (
     <div className="app">
-      <Header />
-
-      {!user ? (
-        <Login />
-      ) : (
-        <div className="app__body">
-          <Sidebar />
-          <Feed />
-          <Widgets />
-        </div>
-      )}
+      <RouterProvider router={router} />
     </div>
   );
 }

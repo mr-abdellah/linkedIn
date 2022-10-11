@@ -62,7 +62,7 @@ const Feed = () => {
       <div className="feed__inputContainer">
         <div className="feed__input">
           <Avatar src={user?.profilePic}>
-            {!user?.profilePic && user.fullName[0]}
+            {!user?.profilePic && user?.fullName?.slice(0)}
           </Avatar>
           <form action="">
             <input
