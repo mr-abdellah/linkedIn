@@ -4,11 +4,7 @@ import "./register.css";
 import LinkedInImg from "../../assets/images/linkedin.png";
 import { auth } from "../../Firebase/firebase.js";
 import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/features/userSlice";
 import "firebase/compat/auth";
@@ -18,31 +14,10 @@ import { Link } from "react-router-dom";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
-  // console.log(fullName);
   const [profilePic, setProfilePic] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-
-  // const registerFunction = async () => {
-  //   if (!fullName) {
-  //     alert("Please enter a full name");
-  //   } else {
-  //     await createUserWithEmailAndPassword(auth, email, password);
-  //     await updateProfile(auth.currentUser, {
-  //       displayName: fullName,
-  //       photoURL: profilePic,
-  //     });
-  //     await dispatch(
-  //       register({
-  //         fullName: auth.currentUser.displayName,
-  //         profilePic: auth.currentUser.photoURL,
-  //         email: auth.currentUser.email,
-  //         uid: auth.currentUser.uid,
-  //       })
-  //     );
-  //   }
-  // };
 
   const registerFunction = async (e) => {
     e.preventDefault();

@@ -4,13 +4,8 @@ import "./app.css";
 import Header from "./app/Header/Header";
 import Sidebar from "./app/Sidebar/Sidebar";
 import Feed from "./app/Feed/Feed";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  login,
-  logout,
-  register,
-  selectUser,
-} from "./redux/features/userSlice";
+import { useDispatch } from "react-redux";
+import { login, logout, register } from "./redux/features/userSlice";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import { useEffect, useState } from "react";
@@ -57,9 +52,12 @@ function App() {
     });
   };
 
-  useEffect(() => {
-    logged();
-  }, []);
+  useEffect(
+    () => {
+      logged();
+    }, //eslint-disable-next-line
+    []
+  );
 
   const Layout = () => {
     return (
