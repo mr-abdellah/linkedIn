@@ -1,5 +1,3 @@
-/** @format */
-
 import "./app.css";
 import Header from "./app/Header/Header";
 import Sidebar from "./app/Sidebar/Sidebar";
@@ -12,6 +10,7 @@ import { useEffect, useState } from "react";
 import { auth } from "./Firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import Widgets from "./app/Widgets/Widgets";
+import Profile from "./pages/Profile/Profile";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -59,7 +58,7 @@ function App() {
     []
   );
 
-  const Layout = () => {
+  const FeedLayout = () => {
     return (
       <>
         <Header />
@@ -72,24 +71,43 @@ function App() {
     );
   };
 
+  const ProfileLayout = () => {
+    return (
+      <>
+        <Header />
+        <Outlet />
+      </>
+    );
+  };
+
   const router = createBrowserRouter([
     {
       path: "/",
-      element: userLoggedIn ? <Layout /> : <Navigate to="/login" />,
+      element: userLoggedIn ? <FeedLayout /> : <Navigate to="/login" />,
       children: [
         {
-          path: "/",
+          path: "/feed",
           element: <Feed />,
         },
       ],
     },
     {
+      path: "/profile",
+      element: <ProfileLayout />,
+      children: [
+        {
+          path: "/profile/:fullName",
+          element: <Profile />,
+        },
+      ],
+    },
+    {
       path: "/login",
-      element: userLoggedIn ? <Navigate to="/" /> : <Login />,
+      element: userLoggedIn ? <Navigate to="/feed" /> : <Login />,
     },
     {
       path: "/register",
-      element: userLoggedIn ? <Navigate to="/" /> : <Register />,
+      element: userLoggedIn ? <Navigate to="/feed" /> : <Register />,
     },
   ]);
 

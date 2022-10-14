@@ -1,5 +1,3 @@
-/** @format */
-
 import "./register.css";
 import LinkedInImg from "../../assets/images/linkedin.png";
 import { auth } from "../../Firebase/firebase.js";

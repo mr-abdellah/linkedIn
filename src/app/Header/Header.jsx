@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout, selectUser } from "../../redux/features/userSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../../Firebase/firebase";
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -26,10 +27,12 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__left">
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"
-          alt=""
-        />
+        <Link className="linkedin__logo" to="/feed">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3536/3536505.png"
+            alt=""
+          />
+        </Link>
 
         <div className="header__search">
           <SearchIcon />
