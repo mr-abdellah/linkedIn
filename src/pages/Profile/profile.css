@@ -92,6 +92,10 @@
   background-color: #ebebeb;
 }
 
+.profile__posts {
+  width: 95%;
+}
+
 @media screen and (min-width: 768px) {
   .profile {
     flex: 0.6;
@@ -108,5 +112,8 @@
 
   .profile__editBtns {
     width: 45%;
+  }
+  .profile__posts {
+    width: 60%;
   }
 }

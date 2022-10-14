@@ -12,7 +12,7 @@ const Profile = () => {
   const { fullName } = useParams();
   const user = useSelector(selectUser);
 
-  console.log(user)
+  console.log(user);
 
   const [posts, setPosts] = useState([]);
 
@@ -51,19 +51,21 @@ const Profile = () => {
         <h1>Error</h1>
       )}
 
-      <FlipMove>
-        {posts
-          ?.filter((e) => e.data.userID === user.uid)
-          .map(({ id, data: { name, description, message, photoUrl } }) => (
-            <Post
-              key={id}
-              name={name}
-              description={description}
-              message={message}
-              photoUrl={photoUrl}
-            />
-          ))}
-      </FlipMove>
+      <div className="profile__posts">
+        <FlipMove>
+          {posts
+            ?.filter((e) => e.data.userID === user.uid)
+            .map(({ id, data: { name, description, message, photoUrl } }) => (
+              <Post
+                key={id}
+                name={name}
+                description={description}
+                message={message}
+                photoUrl={photoUrl}
+              />
+            ))}
+        </FlipMove>
+      </div>
     </>
   );
 };
