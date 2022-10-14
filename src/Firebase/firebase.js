@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { initializeApp } from "firebase/app";
 import { collection, getDocs, getFirestore, orderBy, query } from "firebase/firestore/lite";
 import { getAuth } from "firebase/auth";
