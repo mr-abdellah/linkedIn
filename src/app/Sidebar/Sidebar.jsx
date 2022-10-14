@@ -2,11 +2,12 @@ import { Avatar } from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/userSlice";
 import "./Sidebar.css";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const user = useSelector(selectUser);
 
-  console.log(user);
+  const { fullName, profilePic } = user;
 
   const recentItem = (topic) => (
     <div className="sidebar__recentItem">
@@ -22,8 +23,8 @@ const Sidebar = () => {
           src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JhZGllbnR8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60"
           alt=""
         />
-        <Avatar src={user?.profilePic} className="sidebar__avatar" />
-        <h2>{user?.fullName}</h2>
+        <Avatar src={profilePic} className="sidebar__avatar" />
+        <Link to={`/profile/${fullName}`}>{fullName}</Link>
         <h4>{user?.email}</h4>
       </div>
 

@@ -8,15 +8,8 @@ import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import EventNoteIcon from "@mui/icons-material/EventNote";
 import CalendarViewDayIcon from "@mui/icons-material/CalendarViewDay";
 import Post from "../../components/Post/Post";
-import { db } from "../../Firebase/firebase";
-import {
-  addDoc,
-  collection,
-  getDocs,
-  orderBy,
-  query,
-  serverTimestamp,
-} from "firebase/firestore/lite";
+import { auth, db, getPosts } from "../../Firebase/firebase";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore/lite";
 import { selectUser } from "../../redux/features/userSlice";
 import { useSelector } from "react-redux";
 import FlipMove from "react-flip-move";
@@ -27,21 +20,10 @@ const Feed = () => {
   const [inputData, setInputData] = useState("");
   const [posts, setPosts] = useState([]);
 
-  const getPosts = async () => {
-    await getDocs(
-      query(collection(db, "posts"), orderBy("createdAt", "desc"))
-    ).then((snapshot) => {
-      setPosts(
-        snapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
-    });
-  };
+  const currentUser = auth.currentUser;
 
   useEffect(() => {
-    getPosts();
+    getPosts(setPosts);
   }, []);
 
   const sharePost = (e) => {
@@ -52,10 +34,13 @@ const Feed = () => {
       message: inputData,
       photoUrl: user.profilePic,
       createdAt: serverTimestamp(),
+      userID: currentUser.uid,
     });
     setInputData("");
-    getPosts();
+    getPosts(setPosts);
   };
+
+  console.log(currentUser);
 
   return (
     <div className="feed">
