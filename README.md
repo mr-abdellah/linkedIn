@@ -53,8 +53,6 @@ Give a ⭐️ if you like this project!
 ## Acknowledgments
 
 - Hat tip to anyone whose code was used
-- Inspiration
-- The design is inspired from [Nelson Sakwa](https://www.behance.net/sakwadesignstudio)
 
 ## 📝 License
 
