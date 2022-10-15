@@ -12,6 +12,8 @@
 - React Icons
 - React Router
 - Firebase Auth
+- Firestore
+- Firebase storage
 
 ## Live Demo (if available)
 > To try the web App enter here [LIVE DEMO](https://linkedin-mr-abdellah.netlify.app/)
